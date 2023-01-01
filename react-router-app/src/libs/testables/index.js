@@ -1,1 +1,1 @@
-export * from "./MockableAsync";
+export * from "./mockableAsync";

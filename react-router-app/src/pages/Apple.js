@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useRecoilState } from 'recoil';
-import { elapseBetweenAction, elapseFrom } from '../libs/logging/elapsed';
+import { elapseFrom, elapseWhile } from '../libs/logging';
 import { $state } from '../states';
 
 const Apple = props => {
@@ -10,7 +10,7 @@ const Apple = props => {
         setProductId(productIdRef.current.value);
     }
 
-    elapseBetweenAction("check", () => {
+    elapseWhile("check", () => {
         let t = 0;
         for (let i = 0; i < 100000; i++) {
             t = t + i;
