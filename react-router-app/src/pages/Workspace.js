@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Route, Routes, Link } from 'react-router-dom';
+import { Route, Routes, Link, useParams } from 'react-router-dom';
 import Apple from './Apple';
 import Banana from './Banana';
 import Carrot from './Carrot';
@@ -44,6 +44,7 @@ const MenuItem = styled.li`
     background-color: grey;
     color: white;
   }
+  background-color: ${(props) => props.selected ? "grey" : "white" }
 `
 
 
@@ -74,15 +75,23 @@ SomeFunction().then((result) => {
 });
 
 const Workspace = props => {
+  const param = useParams();
+  console.log(param);
+
+  const menus = [
+    {url: "apple", name: "Apple"},
+    {url: "banana", name: "Banana"},
+    {url: "carrot", name: "Carrot"},
+  ];
+
   console.log("Workspace");
   return (
     <div>
-      <p>This is Workspace</p>
       <div>
         <Menu>
-        <Link to="./apple"><MenuItem>Apple</MenuItem></Link>
-        <Link to="./banana"><MenuItem>Banana</MenuItem></Link>
-        <Link to="./carrot"><MenuItem>Carrot</MenuItem></Link>
+          {menus.map((menu, i) => {
+            return (<Link key={i} to={`./${menu.url}`}><MenuItem selected={param["*"] === menu.url}>{menu.name}</MenuItem></Link>);
+          })}
         </Menu>
       </div>
       <Container>

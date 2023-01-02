@@ -1,16 +1,22 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import LightIndicator from '../components/LightIndicator';
+import ErrorIndicator from '../components/ErrorIndicator';
+import StateChanger from '../components/StateChanger';
+import UpBeepIndicator from '../components/UpBeepIndicator';
 
-const Banana = props => {
+const Banana = () => {
     return (
         <div>
-            this is banana page.
+            <div>
+                <LightIndicator />
+                <ErrorIndicator />     
+                <UpBeepIndicator /> 
+            </div>
+            <div>
+                <StateChanger />
+            </div>
         </div>
     );
-};
-
-Banana.propTypes = {
-    
 };
 
 export default Banana;
