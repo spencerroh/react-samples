@@ -5,10 +5,8 @@ import Apple from './Apple';
 import Banana from './Banana';
 import Carrot from './Carrot';
 import { curry, MockableAsync } from '../libs';
-
-const Container = styled.div`
-  border: 1px solid blue;
-`;
+import ErrorBoundary from '../components/ErrorBoundary';
+import MainLayout from '../components/layouts/MainLayout';
 
 let api = {
   thinq1: {},
@@ -86,23 +84,28 @@ const Workspace = props => {
 
   console.log("Workspace");
   return (
-    <div>
-      <div>
-        <Menu>
-          {menus.map((menu, i) => {
-            return (<Link key={i} to={`./${menu.url}`}><MenuItem selected={param["*"] === menu.url}>{menu.name}</MenuItem></Link>);
-          })}
-        </Menu>
-      </div>
-      <Container>
-        <Routes>
-          <Route path="apple/*" element={<Apple />}></Route>
-          <Route path="banana/*" element={<Banana />}></Route>
-          <Route path="carrot/*" element={<Carrot />}></Route>
-          <Route path="*" element={<Apple />}></Route>
-        </Routes>
-      </Container>
-    </div>
+    <ErrorBoundary>
+      <MainLayout>
+        <div>
+          <div>
+            <Menu>
+              {menus.map((menu, i) => {
+                return (<Link key={i} to={`./${menu.url}`}><MenuItem selected={param["*"] === menu.url}>{menu.name}</MenuItem></Link>);
+              })}
+            </Menu>
+          </div>
+          <div>
+            <Routes>
+              <Route path="apple/*" element={<Apple />}></Route>
+              <Route path="banana/*" element={<Banana />}></Route>
+              <Route path="carrot/*" element={<Carrot />}></Route>
+              <Route path="*" element={<Apple />}></Route>
+            </Routes>
+          </div>
+        </div>
+      </MainLayout>
+      
+    </ErrorBoundary>
   );
 };
 

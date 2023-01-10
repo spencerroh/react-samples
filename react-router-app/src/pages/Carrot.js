@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { random } from 'lodash';
 import ICON_TRAVEL from '../assets/icon-travel.png';
+import makeLoadablePage from '../components/LoadablePage';
 
 const Circle = styled.div`
     box-sizing: border-box;
@@ -92,6 +93,8 @@ const Carrot = props => {
         } while (animal[i] === status);
 
         setStatus(animal[i]);
+
+        throw new Error('Oh No');
     }
 
     function delay(func, delayInMS = 1000) {
@@ -101,6 +104,26 @@ const Carrot = props => {
             }, delayInMS);
         });
     }
+
+    /**
+     * <LoadableComponent 
+        fetch={} 
+        loading={} 
+        loaded={(props) => (<SomeComponent {...props} />)} />
+     */
+    const LoadablePage = makeLoadablePage({
+        fetch: async() => { 
+            return delay(() => {
+                return "고양이";
+            })
+        },
+        loading: (props) => (
+            <div>불러오는중</div>
+        ),
+        loaded: (props) => (
+            <div attr={props.Card.name}>고양이</div>
+        )
+    })
 
     useEffect(() => {
         const func = async () => {
@@ -131,7 +154,12 @@ const Carrot = props => {
                     <Icon src={ICON_TRAVEL} />
                 </Title>
             </Card>
+
+            
             </div>    
+            <LoadablePage />
+
+            
         </div>
         
     );
